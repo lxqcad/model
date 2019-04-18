@@ -1,0 +1,31 @@
+    function table1_generate(myObj, self_prefix) {
+        var className = '';
+        var table_output = "<table class='ui celled table'><thead><tr>" + 
+                    "<th class='center aligned'><div class='ui fitted checkbox'><input type='checkbox' id='" + self_prefix + "_all' onChange=\"" + self_prefix + ".check(this, 2)\"><label></label></div></th>" +
+                    "<th>User Name</th>" +
+                    "<th>User Email</th>" +
+                    "<th class='center aligned'>User Type</th>" +
+                    "</tr></thead><tbody>";
+        $.each(myObj.records, function (val) {
+            className = ''; 
+            if(myObj.records[val].user_type == "Admin") {
+            className = " class='error'";
+            }
+            else if(myObj.records[val].user_type == "Faculty") {
+            className = " class='positive'";
+            }
+            else if(myObj.records[val].user_type == "Other") {
+            className = " class='warning'";
+            }
+            
+            table_output += "<tr" + className + ">";
+            
+            table_output += "<td class='center aligned'><div class='ui fitted checkbox'><input type='checkbox' name='" + self_prefix + "_check_list[]' value='" + myObj.records[val].row_id + "' onChange=\"" + self_prefix + ".check(this, 1)\"><label></label></div></td>";
+            table_output += "<td>"+myObj.records[val].user_name+"</td>";
+            table_output += "<td>"+myObj.records[val].user_email+"</td>";
+            table_output += "<td class='center aligned'>"+myObj.records[val].user_type+"</td>";
+            table_output += "</tr>";
+        });
+        table_output += "</tbody></table>";
+        return(table_output);
+    }
